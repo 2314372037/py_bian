@@ -83,5 +83,5 @@ class netbian():
                         print("保存失败！出现异常：" + str(e))
 
 if __name__ == "__main__":
-    bian=netbian("美女",6)#第一个要搜索的图片名，第二个参数为下载页数
+    bian=netbian("猫",6)#第一个要搜索的图片名，第二个参数为下载页数
     bian.start()
