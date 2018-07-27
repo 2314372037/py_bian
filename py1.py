@@ -11,7 +11,7 @@ class netbian():
     imgName=""
     imgNameUrlEncoding=""#图片名的URL编码
     pageCount=1#获取图片页数
-    intervalTime=1#获取图片间隔时间(s)
+    intervalTime=0.4#获取图片间隔时间(s)
     netbianHostUrl="http://www.netbian.com"#主机地址
     netbianNotSave="http://img.netbian.com/file/2017/0713/bb096e7fc133ddfbe1d409cf9340800b.jpg"#不保存的图片
 
@@ -73,6 +73,10 @@ class netbian():
 
                     print("当前图片:" + str(imgUrl2rr2))
 
+                    if len(imgUrl2rr2)==0:
+                        print("当前集合没有数据,取消保存")
+                        continue
+
                     time.sleep(self.intervalTime)
 
                     if not os.path.exists(os.getcwd()+"\\image"):#当前路径是否存在image文件夹
@@ -83,7 +87,7 @@ class netbian():
                         if os.path.exists(imagePathAndName):
                             print("当前图片已存在，跳过！")
                             continue
-
+                        
                         urllib.request.urlretrieve(imgUrl2rr2[0],imagePathAndName)
                         print("第"+str(cou+1)+"页,第"+str(i+1)+"张图片保存完成！")
                         imageSaveCount=imageSaveCount+1
@@ -92,5 +96,5 @@ class netbian():
         print("ヾﾉ≧∀≦)o 共保存了"+str(imageSaveCount)+"张图片！")
 
 if __name__ == "__main__":
-    bian=netbian("雨",2)#参数说明(要搜索的图片名，页数)
+    bian=netbian("猫",10)#参数说明(要搜索的图片名，页数)
     bian.start()
