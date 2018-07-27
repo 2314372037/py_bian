@@ -78,7 +78,7 @@ class netbian():
                             print("当前图片已存在，跳过！")
                             continue
                         urllib.request.urlretrieve(rr2[0], os.getcwd()+"\\image\\" + self.imgName + str(cou)+str(i)+str(j) + ".jpg")
-                        print(str(rr2) + "第"+str(cou+1)+"页,第"+str(i)+"张图片保存完成！")
+                        print(str(rr2) + "第"+str(cou+1)+"页,第"+str(i+1)+"张图片保存完成！")
                     except Exception as e:
                         print("保存失败！出现异常：" + str(e))
 
