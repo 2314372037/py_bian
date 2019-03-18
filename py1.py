@@ -13,7 +13,10 @@ class netbian():
     pageCount=1#获取图片页数
     intervalTime=0.4#获取图片间隔时间(s)
     netbianHostUrl="http://www.netbian.com"#主机地址
-    netbianNotSave="http://img.netbian.com/file/2017/0713/bb096e7fc133ddfbe1d409cf9340800b.jpg"#不保存的图片
+    netbianNotSave=["http://img.netbian.com/file/2017/0713/bb096e7fc133ddfbe1d409cf9340800b.jpg"
+    ,"http://img.netbian.com/file/2019/0304/d7718c988ae353a6531742bb92d97e91.jpg"
+    ,"http://img.netbian.com/file/2018/1218/5174f6bd57412ee0d66bcff52629cf5e.jpg"]#不保存的图片
+
 
     def __init__(self,keyboard,pageCount):
         self.imgName=keyboard
@@ -23,8 +26,9 @@ class netbian():
     def removeRepeat(self,list_old):
         list_old=list(set(list_old))
         for i in list_old:#删除集合中指定的不保存的图片URL
-            if i==self.netbianNotSave:
-                list_old.remove(self.netbianNotSave)
+            for j in range(len(self.netbianNotSave)):
+                if i==self.netbianNotSave[j]:
+                    list_old.remove(self.netbianNotSave[j])
         return list_old
 
     def getHtml(self,url):
@@ -58,16 +62,14 @@ class netbian():
             netbianUrl = "http://www.netbian.com/e/sch/index.php?page="+str(cou)+"&keyboard=" + self.imgNameUrlEncoding + "&totalnum=85"
 
             page = bian.getHtml(netbianUrl)  # 获取第一个页面
-            imgUrl = self.getImageUrl(page)  # 获取第一个页面的第一个URL
-            imgUrlrr = self.removeRepeat(imgUrl)  # 去重
+            imgUrl = self.getImageUrl(page)  # 获取第一个页面的第cou个URL
 
-            for i in range(len(imgUrlrr)):
-                page1 = self.getHtml(self.netbianHostUrl + imgUrlrr[i])# 获取第二个页面
+            for i in range(len(imgUrl)):
+                page1 = self.getHtml(self.netbianHostUrl + imgUrl[i])# 获取第i个页面
                 imgUrl1 = self.getImageUrl1(page1)# 获取第二个页面的第一个URL
-                imgUrl1rr1 = self.removeRepeat(imgUrl1)# 去重
 
-                for j in range(len(imgUrl1rr1)):
-                    page2 = self.getHtml(self.netbianHostUrl + imgUrl1rr1[j]) # 获取第三个页面
+                for j in range(len(imgUrl1)):
+                    page2 = self.getHtml(self.netbianHostUrl + imgUrl1[j]) # 获取第j个页面
                     imgUrl2 = self.getImageUrl2(page2)# 获取第三个页面的第一个URL
                     imgUrl2rr2 = self.removeRepeat(imgUrl2) # 去重
 
@@ -96,5 +98,5 @@ class netbian():
         print("ヾﾉ≧∀≦)o 共保存了"+str(imageSaveCount)+"张图片！")
 
 if __name__ == "__main__":
-    bian=netbian("猫",10)#参数说明(要搜索的图片名，页数)
+    bian=netbian("美女",10)#参数说明(要搜索的图片名，页数)
     bian.start()
